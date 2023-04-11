@@ -1,3 +1,6 @@
-const Rocket = () => <h1>Hello Rocket</h1>;
+import React from 'react';
 
+const Rocket = () => (
+  <h1 className="rokects">My Rockets</h1>
+);
 export default Rocket;
