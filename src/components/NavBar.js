@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import logo from '../img/planet.png';
 
 const NavBar = () => {
   const links = [
@@ -8,10 +9,16 @@ const NavBar = () => {
   ];
   return (
     <nav>
-      <ul>
+      <a href="/" className="logoContainer">
+        <img src={logo} alt="planet" />
+        <span className="logoTitle">Space Travellers&apos; Hub</span>
+      </a>
+      <ul className="navMenu">
         {links.map((link) => (
           <li key={link.text}>
-            <NavLink to={link.path}>{link.text}</NavLink>
+            <NavLink to={link.path} className="navLink">
+              {link.text}
+            </NavLink>
           </li>
         ))}
       </ul>
