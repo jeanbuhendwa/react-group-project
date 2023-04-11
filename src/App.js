@@ -10,7 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LayOut />}>
         <Route index element={<Rocket />} />
-        <Route path="missions" element={<Mission />} />
+        <Route path="mission" element={<Mission />} />
         <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
