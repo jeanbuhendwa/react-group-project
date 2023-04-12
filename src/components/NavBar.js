@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../img/planet.png';
 
-const NavBar = () => {
+const Navbar = () => {
   const links = [
     { path: '/', text: 'Rockets' },
-    { path: 'missions', text: 'Missions' },
+    { path: 'mission', text: 'Missions' },
     { path: 'profile', text: 'My Profile' },
   ];
   return (
@@ -26,4 +26,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;
