@@ -7,7 +7,7 @@ const TOGGLE_RESERVATION = 'spaceTravelersHub/missions/TOGGLE_RESERVATION';
 export const fetchMissions = createAsyncThunk(
   FETCH_MISSIONS,
   async () => {
-    const missions = await axios.get('');
+    const missions = await axios.get('https://api.spacexdata.com/v3/missions');
 
     return missions.data.map((mission) => ({
       ...mission,
