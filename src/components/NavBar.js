@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../img/planet.png';
 
-const Navbar = () => {
+const NavBar = () => {
   const links = [
     { path: '/', text: 'Rockets' },
     { path: 'mission', text: 'Missions' },
@@ -26,4 +26,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

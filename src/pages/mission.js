@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMissions, toggleMissionReservation } from '../redux/missions/missionsReducer';
+import { fetchMissions, toggleMissionReservation } from '../redux/Missions/missionsReducer';
 
-const Missions = () => {
+const Mission = () => {
   const missionDetails = useSelector((state) => state.missions);
   const dispatch = useDispatch();
 
@@ -44,4 +44,4 @@ const Missions = () => {
   );
 };
 
-export default Missions;
+export default Mission;
