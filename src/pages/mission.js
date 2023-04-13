@@ -5,6 +5,7 @@ import {
   joinMission,
   leaveMission,
 } from '../redux/missions/missionsReducer';
+
 const Mission = () => {
   const { missions, isMissionLoading } = useSelector((state) => state.mission);
   const dispatch = useDispatch();

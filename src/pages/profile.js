@@ -2,12 +2,11 @@ import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const rockets = useSelector((state) => state.rocket.rockets.filter((rocket) => rocket.reserved));
-const missions = useSelector((state) => state.mission.missions.filter((mis) => mis.joined));
+  const missions = useSelector((state) => state.mission.missions.filter((mis) => mis.joined));
   return (
     <main className="mainProfile">
       <section className="reservedRocket">
         <h2>My Rockets</h2>
-        <MissionProfile />
         <ul>
           {rockets.length > 0 ? (
             rockets.map((rocket) => (
@@ -21,7 +20,7 @@ const missions = useSelector((state) => state.mission.missions.filter((mis) => m
           )}
         </ul>
       </section>
-<section className="missionJoined">
+      <section className="missionJoined">
         <h2>My Missions</h2>
         <ul>
           {missions.length > 0 ? (
