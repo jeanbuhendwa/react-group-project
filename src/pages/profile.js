@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import MissionProfile from './missionProfile';
 
 const Profile = () => {
   const rockets = useSelector((state) => state.rocket.rockets.filter((rocket) => rocket.reserved));
@@ -7,6 +8,7 @@ const Profile = () => {
     <main className="mainProfile">
       <section className="reservedRocket">
         <h2>My Rockets</h2>
+        <MissionProfile />
         <ul>
           {rockets.length > 0 ? (
             rockets.map((rocket) => (
