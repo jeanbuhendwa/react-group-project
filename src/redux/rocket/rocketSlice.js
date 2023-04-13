@@ -4,6 +4,7 @@ const initialState = {
   rockets: [],
   status: '',
   error: null,
+  isRocketLoading: true,
 };
 
 export const getData = createAsyncThunk('rockets/getRocket', async () => {
@@ -49,6 +50,7 @@ const rocketSlice = createSlice({
       .addCase(getData.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.rockets = action.payload;
+        state.isRocketLoading = false;
       })
       .addCase(getData.rejected, (state, action) => {
         state.status = 'failed';
