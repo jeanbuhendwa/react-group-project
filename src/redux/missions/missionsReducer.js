@@ -1,38 +1,66 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const FETCH_MISSIONS = 'spaceTravelersHub/missions/FETCH';
-const TOGGLE_RESERVATION = 'spaceTravelersHub/missions/TOGGLE_RESERVATION';
-
+const initialState = {
+  missions: [],
+  status: '',
+  error: null,
+  isMissionLoading: true,
+};
 export const fetchMissions = createAsyncThunk(
-  FETCH_MISSIONS,
+  'missions/getMission',
   async () => {
-    const missions = await axios.get('https://api.spacexdata.com/v3/missions');
-
-    return missions.data.map((mission) => ({
-      ...mission,
-      reserved: false,
-    }));
+    try {
+      const response = await fetch('https://api.spacexdata.com/v3/missions');
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   },
 );
-
-export const toggleMissionReservation = (payload) => ({
-  type: TOGGLE_RESERVATION,
-  payload,
-});
-
-const initialState = [];
-
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case `${FETCH_MISSIONS}/fulfilled`:
-      return action.payload;
-    case TOGGLE_RESERVATION:
-      return state.map((mission) => {
+const missionSlice = createSlice({
+  name: 'mission',
+  initialState,
+  reducers: {
+    joinMission: (state, action) => {
+      const newMission = state.missions.map((mission) => {
         if (mission.mission_id !== action.payload) return mission;
-        return { ...mission, reserved: !mission.reserved };
+        return { ...mission, joined: true };
       });
-    default:
-      return state;
-  }
-};
+      return {
+        ...state,
+        missions: newMission,
+      };
+    },
+    leaveMission: (state, action) => {
+      const newMission = state.missions.map((mission) => {
+        if (mission.mission_id !== action.payload) return mission;
+        return { ...mission, joined: false };
+      });
+      return {
+        ...state,
+        missions: newMission,
+      };
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMissions.pending, (state) => ({
+        ...state,
+        status: 'loading',
+      }))
+      .addCase(fetchMissions.fulfilled, (state, action) => ({
+        ...state,
+        status: 'succeeded',
+        missions: action.payload,
+        isMissionLoading: false,
+      }))
+      .addCase(fetchMissions.rejected, (state, action) => ({
+        ...state,
+        status: 'failed',
+        error: action.error.message,
+      }));
+  },
+});
+export const { joinMission, leaveMission } = missionSlice.actions;
+export default missionSlice.reducer;

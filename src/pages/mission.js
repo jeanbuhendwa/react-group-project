@@ -1,47 +1,64 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchMissions, toggleMissionReservation } from '../redux/missions/missionsReducer';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchMissions,
+  joinMission,
+  leaveMission,
+} from '../redux/missions/missionsReducer';
 
-const Missions = () => {
-  const missionDetails = useSelector((state) => state.missions);
+const Mission = () => {
+  const { missions, isMissionLoading } = useSelector((state) => state.mission);
   const dispatch = useDispatch();
-
   useEffect(() => {
-    if (!missionDetails.length) dispatch(fetchMissions());
-  }, [dispatch, missionDetails]);
-
+    if (isMissionLoading) {
+      dispatch(fetchMissions());
+    }
+  }, [dispatch, isMissionLoading]);
+  if (isMissionLoading) {
+    return <p>loading...</p>;
+  }
   return (
-    <main>
+    <main className="missionContainer">
       <table className="missions-table">
-        <thead>
-          <tr>
-            <th>Mission</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th> </th>
-          </tr>
-        </thead>
-        <tbody>
-          {missionDetails.map((mission) => (
-            <tr key={mission.mission_id}>
-              <td className="mission-name">{mission.mission_name}</td>
-              <td className="mission-description">{mission.description}</td>
-              <td className="member-status-cell"><span className={mission.reserved ? 'active-badge' : ''}>{mission.reserved ? 'Active Member' : 'NOT A MEMBER'}</span></td>
-              <td className="btn-allover">
+        <tr>
+          <th>Mission</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th> </th>
+        </tr>
+        {missions.map((mission) => (
+          <tr key={mission.mission_id}>
+            <td className="mission-name">{mission.mission_name}</td>
+            <td className="mission-description">{mission.description}</td>
+            <td className="member-status-cell">
+              <span className={mission.joined ? 'active-badge' : 'notActive'}>
+                {mission.joined ? 'Active Member' : 'NOT A MEMBER'}
+              </span>
+            </td>
+            <td className="btn-allover">
+              {!mission.joined && (
                 <button
                   type="button"
-                  className={mission.reserved ? 'danger-btn' : ''}
-                  onClick={() => dispatch(toggleMissionReservation(mission.mission_id))}
+                  onClick={() => dispatch(joinMission(mission.mission_id))}
+                  className="joinBtn"
                 >
-                  {mission.reserved ? 'Leave Mission' : 'Join Mission'}
+                  Join mission
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+              )}
+              {mission.joined && (
+                <button
+                  type="button"
+                  onClick={() => dispatch(leaveMission(mission.mission_id))}
+                  className="leaveBtn"
+                >
+                  Leave mission
+                </button>
+              )}
+            </td>
+          </tr>
+        ))}
       </table>
     </main>
   );
 };
-
-export default Missions;
+export default Mission;
