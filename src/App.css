@@ -3,6 +3,10 @@
 * {
   padding: 0;
   margin: 0;
+  list-style: none;
+}
+
+body {
   font-family: 'Inter', sans-serif;
 }
 
@@ -49,5 +53,101 @@ nav {
 
 .active {
   border-bottom: 1px solid rgb(40, 40, 130);
+  font-weight: 700;
   padding: 0 0 10px;
+}
+
+.mainContainer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  border-top: 2px solid rgb(162, 162, 162);
+  margin: 10px 120px;
+}
+
+.rocketContainer {
+  display: grid;
+  grid-template-columns: 30% 68%;
+  gap: 2%;
+}
+
+.rocketImg img {
+  width: 100%;
+  height: 180px;
+}
+
+.rocketInfo h2 {
+  color: rgb(76, 76, 76);
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+  font-size: 24px;
+}
+
+.rocketInfo p {
+  color: rgb(76, 76, 76);
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: justify;
+}
+
+.btnReserve {
+  background: rgb(40, 40, 130);
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+  color: rgb(238, 238, 238);
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btnCancel {
+  background: rgb(238, 238, 238);
+  padding: 8px 20px;
+  border: 2px solid rgb(40, 40, 130);
+  cursor: pointer;
+  color: rgb(40, 40, 130);
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.rocket-badge {
+  background: rgb(40, 40, 130);
+  padding: 2px;
+  color: rgb(238, 238, 238);
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mainProfile {
+  padding: 20px 120px;
+  display: grid;
+  grid-template-columns: 49% 49%;
+  gap: 2%;
+}
+
+.reservedRocket {
+  border: 2px solid rgb(162, 162, 162);
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.resRocket {
+  border: 1px solid rgb(162, 162, 162);
+  padding: 10px 5px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+.resRocket h2 {
+  font-size: 18px;
+}
+
+.resRocket p {
+  font-size: 12px;
 }

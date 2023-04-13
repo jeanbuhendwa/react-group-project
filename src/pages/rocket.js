@@ -7,26 +7,28 @@ const Rocket = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getData());
-  }, [dispatch]);
+    if (!rockets.length) {
+      dispatch(getData());
+    }
+  }, [dispatch, rockets]);
 
   if (isRocketLoading) {
     return <p>loading...</p>;
   }
 
   return (
-    <main>
+    <main className="mainContainer">
       {rockets.length > 0 ? (
         rockets.map((rocket) => (
-          <div key={rocket.id}>
-            <div>
+          <div key={rocket.id} className="rocketContainer">
+            <div className="rocketImg">
               <img src={rocket.flickr_images[0]} alt={rocket.rocket_name} />
             </div>
-            <div>
+            <div className="rocketInfo">
               <h2>{rocket.name}</h2>
               <p>
                 {rocket.reserved && (
-                  <span className="rocket-badge">Reserved </span>
+                  <span className="rocket-badge">Reserved</span>
                 )}
                 {rocket.description}
               </p>
@@ -35,6 +37,7 @@ const Rocket = () => {
                 <button
                   type="button"
                   onClick={() => dispatch(cancelReserve(rocket.id))}
+                  className="btnCancel"
                 >
                   cancel Reservation
                 </button>
@@ -43,6 +46,7 @@ const Rocket = () => {
                 <button
                   type="button"
                   onClick={() => dispatch(reserve(rocket.id))}
+                  className="btnReserve"
                 >
                   Reserve Rocket
                 </button>
